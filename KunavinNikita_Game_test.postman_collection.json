@@ -48,57 +48,6 @@
 			"response": []
 		},
 		{
-			"name": "Update_me",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "33ed3a98-fad0-40f8-bea7-f6227adce019",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Your nativeName change\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.nativeName).to.eql(\"Kunavin_Nikita\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"NativeName\": \"Kunavin_Nikita\",\r\n  \"role\": 0,\r\n  \"OldPassword\": \"13542\",\r\n  \"Password\": \"13542\",\r\n  \"ConfirmPassword\": \"13542\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "104.40.150.146/api/user/{{userid}}",
-					"host": [
-						"104",
-						"40",
-						"150",
-						"146"
-					],
-					"path": [
-						"api",
-						"user",
-						"{{userid}}"
-					]
-				},
-				"description": "update info about me"
-			},
-			"response": []
-		},
-		{
 			"name": "Get__Map_list(map)",
 			"event": [
 				{
@@ -389,43 +338,6 @@
 					"path": [
 						"api",
 						"maps"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get_maps_from_User",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "e113a2de-07d3-4c75-af96-21c8984ff5fe",
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "104.40.150.146/api/user/{{userid}}",
-					"host": [
-						"104",
-						"40",
-						"150",
-						"146"
-					],
-					"path": [
-						"api",
-						"user",
-						"{{userid}}"
 					]
 				}
 			},
