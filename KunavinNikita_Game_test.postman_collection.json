@@ -12,7 +12,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "01b7b3dd-bb62-4025-a2a6-d86e64de4184",
+						"id": "ca731a3d-cb3f-4a9e-9cf8-795ff520ec33",
 						"exec": [
 							"pm.test(\"Status code is 201\", function () {\r",
 							"    pm.response.to.have.status(201);\r",
@@ -20,7 +20,7 @@
 							"\r",
 							"pm.test(\"Your login is _HuKuTa742\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
+							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742_\");\r",
 							"});\r",
 							"\r",
 							"pm.environment.set('username',pm.response.json().login); // Запоминаем логин\r",
@@ -37,7 +37,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"Login\": \"_HuKuTa742\", \r\n  \"NativeName\": \"Nikita_Kunavin\",\r\n  \"Password\": \"13542\",\r\n  \"ConfirmPassword\": \"13542\"\r\n}",
+					"raw": "{\r\n  \"Login\": \"_HuKuTa742_\", \r\n  \"NativeName\": \"Nikita_Kunavin\",\r\n  \"Password\": \"13542\",\r\n  \"ConfirmPassword\": \"13542\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -120,16 +120,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0a689ee7-3d73-4cbc-a286-133c251fa10e",
+						"id": "15a99634-8ff7-45ae-8332-ab17142c5886",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Your login is _HuKuTa742\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -212,7 +208,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7a4d6ae8-7396-4db3-8faa-6f57ff38ce41",
+						"id": "f14fee65-b2e5-4427-8137-058495e00ddd",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
@@ -220,7 +216,7 @@
 							"\r",
 							"pm.test(\"Your login\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
+							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742_\");\r",
 							"});"
 						],
 						"type": "text/javascript"
