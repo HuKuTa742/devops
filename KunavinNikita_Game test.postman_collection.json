@@ -1,0 +1,618 @@
+{
+	"info": {
+		"_postman_id": "2dd22444-68ff-4def-924b-46711ed9b943",
+		"name": "Game test",
+		"description": "test my game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b7696857-1bdc-40fb-a5df-aafbb1d1139c",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login is _HuKuTa742\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('username',pm.response.json().login); // Запоминаем логин\r",
+							"pm.environment.set('userid',pm.response.json().id); // Запоминаем логин\r",
+							"// pm.environment.set('userpass',pm.response.json().password);\r",
+							"// Пароль запомнить в переменную нельзя (возможно он защищён от чтения при шифровке)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Login\": \"_HuKuTa742\", \r\n  \"NativeName\": \"Nikita_Kunavin\",\r\n  \"Password\": \"13542\",\r\n  \"ConfirmPassword\": \"13542\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "user reg"
+			},
+			"response": []
+		},
+		{
+			"name": "_NO_TEST_Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75b4eacf-ba96-4949-ab64-e287f9fd9ee6",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "13542",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "104.40.150.146/token",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"token"
+					]
+				},
+				"description": "get token"
+			},
+			"response": []
+		},
+		{
+			"name": "Info_me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f713c3a-d6df-461e-a829-77c8988e8bfd",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login is _HuKuTa742\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/me",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"me"
+					]
+				},
+				"description": "info about me"
+			},
+			"response": []
+		},
+		{
+			"name": "Update_me",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "33ed3a98-fad0-40f8-bea7-f6227adce019",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your nativeName change\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.nativeName).to.eql(\"Kunavin_Nikita\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"NativeName\": \"Kunavin_Nikita\",\r\n  \"role\": 0,\r\n  \"OldPassword\": \"13542\",\r\n  \"Password\": \"13542\",\r\n  \"ConfirmPassword\": \"13542\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/user/{{userid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userid}}"
+					]
+				},
+				"description": "update info about me"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Info_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c2561e18-3012-47b4-9f1f-a6ab04fca591",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your login\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.login).to.eql(\"_HuKuTa742\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/user/{{userid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userid}}"
+					]
+				},
+				"description": "get info about user"
+			},
+			"response": []
+		},
+		{
+			"name": "Get__Map_list(map)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0507732b-be27-4c28-b303-75d3db7d2fc9",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your id 1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/map",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"map"
+					]
+				},
+				"description": "get map"
+			},
+			"response": []
+		},
+		{
+			"name": "Create_game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2e515a6d-9702-4dce-b70d-df89777fc063",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Game Create\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.name).to.eql(\"Test_game\");\r",
+							"});\r",
+							"\r",
+							"pm.environment.set('gameid',pm.response.json().id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"Test_game\",\r\n  \"MapId\": \"bebe519dd8f7458eb8fd9aba960d17e7\",\r\n  \"SwitchTimeout\": 30,\r\n  \"StartupTeamLives\": 3,\r\n  \"PoliceSpeed\": 3,\r\n  \"ThiefSpeed\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				},
+				"description": "create game"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Game_List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7dae5509-681e-45b5-aee2-d394bec95d38",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Games found\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].name).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/games",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Info_Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9a9368d8-554a-4640-afc5-9331947bf7a7",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your game found\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.map.cells[0].type).to.eql(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game/{{gameid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"{{gameid}}"
+					]
+				},
+				"description": "get info about game"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Info_Games",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72f431e-0cb7-49f3-bb05-2a47dc004278",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Games found\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].name).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete_Game",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b0e0c749-48f2-403a-b091-c5bc5d096f4a",
+						"exec": [
+							"pm.test(\"Status code is 202\", function () {\r",
+							"    pm.response.to.have.status(202);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 1000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/game/{{gameid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"game",
+						"{{gameid}}"
+					]
+				},
+				"description": "delete game"
+			},
+			"response": []
+		},
+		{
+			"name": "Get__Map_list(maps)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e0fd4331-3b4c-49ab-bff7-53518f2ecd6c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Your string\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0].id).to.be.a('string');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/maps",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"maps"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get_maps_from_User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e113a2de-07d3-4c75-af96-21c8984ff5fe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "104.40.150.146/api/user/{{userid}}",
+					"host": [
+						"104",
+						"40",
+						"150",
+						"146"
+					],
+					"path": [
+						"api",
+						"user",
+						"{{userid}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "AQAAANCMnd8BFdERjHoAwE_Cl-sBAAAAAZ-KQx9Y8kGFX7ItjR4uNgAAAAACAAAAAAAQZgAAAAEAACAAAABStFEYXjV2Z_btOwMLer7Gpvjt-NoKc7_FM89XFQQgJQAAAAAOgAAAAAIAACAAAACTmi5pG6DI2TzDHN3eYLxR5aRTUf3Y-B76MgiIOqsjmyABAAA93p-YYeP7kOaE1l2lZKgasbk5YiBSturQzcVnanZE7Jv9-mVXEhsRlzWqm8ggZ_qeHiJ0uKdF6bhjOLGEbZyGVd59sOzY4ZgMIp687GsTENJDNrTbFR0PdQRl_owYeI2QrLWl_v-5_0zjEIZSns5TZhWq_qo_de3V-GHykLeWgHfgOLxLgZyUX9xERm81ifsVdJ0kTmyB1iWC7kFPoHMdCFklsBbH_Hu1GYRDuxixcQpm372HKkzPf83JPTlprQ5WFlLG8HZxA9Ch8BQJSFO1MflCEwyw71V0q56KH1EQ7zdTxP1TiBBWMhztAf8Bk-dZVwoNlVS_1IT3xgppKc0l3_TcW4TxFSFlGre-zZYU3LcRrCK0fcC6Nr0WVfM-LWVAAAAA7uF7G9iBsoHMZIKxYnliZv2R4qF3b85d-4asiP-qipwy8tyZzTr3A_-AcqXzA0fAzehIQZoUc6oJSSfB7eGRdQ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "990ed1bf-07c0-4393-9dbb-0d28be8fee24",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f0a8dc08-3405-4ff8-98a6-a7cb8301c829",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
